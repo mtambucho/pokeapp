@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokeapp/network/pokeapi_repository.dart';
+import 'package:pokeapp/page/detail_page.dart';
 import 'package:pokeapp/page/home_page.dart';
 import 'package:pokeapp/page/login_page.dart';
 import 'package:pokeapp/page/splash_page.dart';
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         navigatorKey: _navigatorKey,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.red,
+          accentColor: Colors.yellow,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         builder: (context, child) {
@@ -36,13 +38,11 @@ class MyApp extends StatelessWidget {
                 child: BlocListener<AuthenticationBloc, AuthenticationState>(
                   listener: (context, state) {
                     if (state is AuthenticationUnauthenticated) {
-                      _navigator.pushAndRemoveUntil<void>(
-                          MaterialPageRoute<void>(builder: (_) => LoginPage()),
-                          (_) => false);
+                      _navigator.pushNamedAndRemoveUntil(
+                          LoginPage.routeName, (_) => false);
                     } else if (state is AuthenticationAuthenticated) {
-                      _navigator.pushAndRemoveUntil<void>(
-                          MaterialPageRoute<void>(builder: (_) => HomePage()),
-                          (_) => false);
+                      _navigator.pushNamedAndRemoveUntil(
+                          HomePage.routeName, (_) => false);
                     }
                   },
                   child: child,
@@ -50,6 +50,10 @@ class MyApp extends StatelessWidget {
               ));
         },
         home: SplashPage(),
-        routes: {});
+        routes: {
+          LoginPage.routeName: (ctx) => LoginPage(),
+          HomePage.routeName: (ctx) => HomePage(),
+          DetailPage.routeName: (ctx) => DetailPage(),
+        });
   }
 }

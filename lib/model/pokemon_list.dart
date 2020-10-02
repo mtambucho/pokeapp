@@ -48,20 +48,24 @@ class PokemonList {
 class PokemonItem {
   String _name;
   String _url;
+  String _imageUrl;
 
   PokemonItem({String name, String url}) {
     _name = name;
     _url = url;
+    _getImageUrl();
   }
 
   String get name => _name;
   set name(String name) => _name = name;
   String get url => _url;
+  String get imageUrl => _imageUrl;
   set url(String url) => _url = url;
 
   PokemonItem.fromJson(Map<String, dynamic> json) {
     _name = json['name'];
     _url = json['url'];
+    _getImageUrl();
   }
 
   Map<String, dynamic> toJson() {
@@ -69,5 +73,15 @@ class PokemonItem {
     data['name'] = _name;
     data['url'] = _url;
     return data;
+  }
+
+  void _getImageUrl() {
+    final start = 'https://pokeapi.co/api/v2/pokemon/';
+    final end = '/';
+    final startIndex = _url.indexOf(start);
+    final endIndex = _url.indexOf(end, startIndex + start.length);
+    var id = _url.substring(startIndex + start.length, endIndex);
+    _imageUrl =
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png';
   }
 }
