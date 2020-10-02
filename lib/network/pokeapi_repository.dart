@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pokeapp/model/User.dart';
+import 'package:pokeapp/model/user.dart';
 
 abstract class PokeApiRepositoryFactory {
   User login({String username, String password});

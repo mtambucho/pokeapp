@@ -4,8 +4,9 @@ import 'package:pokeapp/network/pokeapi_repository.dart';
 import 'package:pokeapp/page/home_page.dart';
 import 'package:pokeapp/page/login_page.dart';
 import 'package:pokeapp/page/splash_page.dart';
-import 'package:pokeapp/bloc/authentication/authentication_bloc.dart';
 import 'package:pokeapp/util/simple_bloc_observer.dart';
+
+import 'bloc/authentication_bloc/authentication_bloc.dart';
 
 void main() {
   Bloc.observer = SimpleBlocObserver();
