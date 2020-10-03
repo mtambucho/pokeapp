@@ -50,7 +50,8 @@ class PokemonBasicInfo {
   }
 
   int get id => _id;
-  String get name => _name;
+  String get name =>
+      '${_name.substring(0, 1).toUpperCase()}${_name.substring(1)}';
   set name(String name) => _name = name;
   String get url => _url;
   String get imageUrl => _imageUrl;

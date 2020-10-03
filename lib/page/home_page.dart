@@ -34,23 +34,33 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Image.asset(
+          'asset/logo.png',
+          height: 60,
+        ),
+        backgroundColor: Colors.grey.shade700,
         actions: [
           IconButton(
-              icon: Icon(Icons.logout),
+              icon: Icon(Icons.logout, color: Color(0xFFF3CB0C)),
               onPressed: () => BlocProvider.of<AuthenticationBloc>(context)
                   .add(AuthenticationLoggedOut()))
         ],
       ),
-      body: BlocBuilder<PokemonsCubit, PokemonsState>(
-        cubit: BlocProvider.of<PokemonsCubit>(context)..fetchPokemons(),
-        builder: (context, state) {
-          if (state is PokemonsLoading) return LoadingWidget();
-          if (state is PokemonsLoaded) {
-            hasReachedPoint = false;
-            return _buildPokemonList(state);
-          }
-          return Center(child: Text('Page not found'));
-        },
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('asset/background.jpg'), fit: BoxFit.cover)),
+        child: BlocBuilder<PokemonsCubit, PokemonsState>(
+          cubit: BlocProvider.of<PokemonsCubit>(context)..fetchPokemons(),
+          builder: (context, state) {
+            if (state is PokemonsLoading) return LoadingWidget();
+            if (state is PokemonsLoaded) {
+              hasReachedPoint = false;
+              return _buildPokemonList(state);
+            }
+            return Center(child: Text('Page not found'));
+          },
+        ),
       ),
     );
   }
@@ -62,11 +72,8 @@ class _HomePageState extends State<HomePage> {
             : state.pokemons.length + 1,
         itemBuilder: (context, index) {
           if (index < state.pokemons.length) {
-            return ListTile(
-                title: Text(state.pokemons[index].name),
-                leading: Hero(
-                    tag: state.pokemons[index].id,
-                    child: Image.network(state.pokemons[index].imageUrl)),
+            return PokemonItemWidget(
+                pokemon: state.pokemons[index],
                 onTap: () => Navigator.of(context)
                     .pushNamed(DetailPage.routeName, arguments: index));
           } else {
@@ -94,5 +101,55 @@ class _HomePageState extends State<HomePage> {
       hasReachedPoint = true;
       BlocProvider.of<PokemonsCubit>(context).fetchPokemons();
     }
+  }
+}
+
+class PokemonItemWidget extends StatelessWidget {
+  const PokemonItemWidget({
+    @required this.pokemon,
+    @required this.onTap,
+    Key key,
+  }) : super(key: key);
+
+  final PokemonBasicInfo pokemon;
+  final Function onTap;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        color: Colors.grey.shade800.withAlpha(120),
+        elevation: 0,
+        margin: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width * .1, vertical: 10),
+        child: Container(
+          height: 100,
+          child: Row(
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width * .05,
+              ),
+              Hero(
+                  tag: pokemon.id,
+                  child: Image.network(
+                    pokemon.imageUrl,
+                    fit: BoxFit.fitHeight,
+                    height: 100,
+                  )),
+              Spacer(),
+              Text(
+                pokemon.name,
+                style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * .1,
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+
+    //onTap: onTap);
   }
 }
