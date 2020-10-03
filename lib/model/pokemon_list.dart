@@ -2,10 +2,13 @@ class PokemonList {
   int _count;
   String _next;
   String _previous;
-  List<PokemonItem> _pokemons;
+  List<PokemonBasicInfo> _pokemons;
 
   PokemonList(
-      {int count, String next, Null previous, List<PokemonItem> pokemons}) {
+      {int count,
+      String next,
+      Null previous,
+      List<PokemonBasicInfo> pokemons}) {
     _count = count;
     _next = next;
     _previous = previous;
@@ -18,61 +21,45 @@ class PokemonList {
   set next(String next) => _next = next;
   String get previous => _previous;
   set previous(Null previous) => _previous = previous;
-  List<PokemonItem> get pokemons => _pokemons;
-  set pokemons(List<PokemonItem> pokemons) => _pokemons = pokemons;
+  List<PokemonBasicInfo> get pokemons => _pokemons;
+  set pokemons(List<PokemonBasicInfo> pokemons) => _pokemons = pokemons;
 
   PokemonList.fromJson(Map<String, dynamic> json) {
     _count = json['count'];
     _next = json['next'];
     _previous = json['previous'];
     if (json['results'] != null) {
-      _pokemons = <PokemonItem>[];
+      _pokemons = <PokemonBasicInfo>[];
       json['results'].forEach((v) {
-        _pokemons.add(PokemonItem.fromJson(v));
+        _pokemons.add(PokemonBasicInfo.fromJson(v));
       });
     }
   }
-
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['count'] = _count;
-    data['next'] = _next;
-    data['previous'] = _previous;
-    if (_pokemons != null) {
-      data['results'] = _pokemons.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
 }
 
-class PokemonItem {
+class PokemonBasicInfo {
+  int _id;
   String _name;
   String _url;
   String _imageUrl;
 
-  PokemonItem({String name, String url}) {
+  PokemonBasicInfo({String name, String url}) {
     _name = name;
     _url = url;
     _getImageUrl();
   }
 
+  int get id => _id;
   String get name => _name;
   set name(String name) => _name = name;
   String get url => _url;
   String get imageUrl => _imageUrl;
   set url(String url) => _url = url;
 
-  PokemonItem.fromJson(Map<String, dynamic> json) {
+  PokemonBasicInfo.fromJson(Map<String, dynamic> json) {
     _name = json['name'];
     _url = json['url'];
     _getImageUrl();
-  }
-
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['name'] = _name;
-    data['url'] = _url;
-    return data;
   }
 
   void _getImageUrl() {
@@ -83,5 +70,6 @@ class PokemonItem {
     var id = _url.substring(startIndex + start.length, endIndex);
     _imageUrl =
         'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png';
+    _id = int.parse(id);
   }
 }

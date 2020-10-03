@@ -10,10 +10,11 @@ abstract class PokemonsState extends Equatable {
 class PokemonsLoading extends PokemonsState {}
 
 class PokemonsLoaded extends PokemonsState {
-  final List<PokemonItem> pokemons;
+  final List<PokemonBasicInfo> pokemons;
+  final bool hasReachedMax;
 
-  PokemonsLoaded(this.pokemons);
+  PokemonsLoaded(this.pokemons, {this.hasReachedMax = false});
 
   @override
-  List<Object> get props => [pokemons];
+  List<Object> get props => [pokemons, hasReachedMax];
 }

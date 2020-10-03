@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pokeapp/network/pokeapi_repository.dart';
+import 'package:pokeapp/detail_cubit/detail_cubit.dart';
+import 'package:pokeapp/network/pokemon_repository.dart';
 import 'package:pokeapp/page/detail_page.dart';
 import 'package:pokeapp/page/home_page.dart';
 import 'package:pokeapp/page/login_page.dart';
@@ -8,6 +9,7 @@ import 'package:pokeapp/page/splash_page.dart';
 import 'package:pokeapp/util/simple_bloc_observer.dart';
 
 import 'bloc/authentication_bloc/authentication_bloc.dart';
+import 'bloc/pokemons_cubit/pokemons_cubit.dart';
 
 void main() {
   Bloc.observer = SimpleBlocObserver();
@@ -31,10 +33,19 @@ class MyApp extends StatelessWidget {
         ),
         builder: (context, child) {
           return RepositoryProvider(
-              create: (context) => PokeApiRepository(),
-              child: BlocProvider<AuthenticationBloc>(
-                create: (context) =>
-                    AuthenticationBloc()..add(AuthenticationInit()),
+              create: (context) => PokemonRepository(),
+              child: MultiBlocProvider(
+                providers: [
+                  BlocProvider<AuthenticationBloc>(
+                      create: (context) =>
+                          AuthenticationBloc()..add(AuthenticationInit())),
+                  BlocProvider(
+                    create: (context) => PokemonsCubit(
+                      pokemonRepository:
+                          context.repository<PokemonRepository>(),
+                    ),
+                  )
+                ],
                 child: BlocListener<AuthenticationBloc, AuthenticationState>(
                   listener: (context, state) {
                     if (state is AuthenticationUnauthenticated) {
@@ -53,7 +64,12 @@ class MyApp extends StatelessWidget {
         routes: {
           LoginPage.routeName: (ctx) => LoginPage(),
           HomePage.routeName: (ctx) => HomePage(),
-          DetailPage.routeName: (ctx) => DetailPage(),
+          DetailPage.routeName: (ctx) => BlocProvider<DetailCubit>(
+                create: (context) => DetailCubit(
+                  pokemonRepository: context.repository<PokemonRepository>(),
+                ),
+                child: DetailPage(),
+              ),
         });
   }
 }

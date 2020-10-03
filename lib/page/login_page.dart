@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokeapp/bloc/authentication_bloc/authentication_bloc.dart';
 import 'package:pokeapp/bloc/login_cubit/login_cubit.dart';
-import 'package:pokeapp/network/pokeapi_repository.dart';
+import 'package:pokeapp/network/pokemon_repository.dart';
 import 'package:pokeapp/widget/loading_widget.dart';
 
 class LoginPage extends StatefulWidget {
@@ -19,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     _loginCubit = LoginCubit(
-        pokeapiRepository: RepositoryProvider.of<PokeApiRepository>(context),
+        pokemonRepository: RepositoryProvider.of<PokemonRepository>(context),
         authenticationBloc: BlocProvider.of<AuthenticationBloc>(context));
     super.initState();
   }
