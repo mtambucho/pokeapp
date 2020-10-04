@@ -30,19 +30,26 @@ git clone https://github.com/mtambucho/pokeapp.git
 ```
 cd pokeapp
 ```
-4- Download the resources 
+
+4- Make sure flutter channel is stable and is up to date
+```
+flutter channel stable
+flutter upgrade
+```
+
+5- Download the resources 
 
 ```
 flutter pub get
 ```
 
-5- Check device is running
+6- Check device is running
 
 ```
 flutter devices
 ```
 
-6- Run the app
+7- Run the app
 
 ```
 flutter run
