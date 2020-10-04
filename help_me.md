@@ -8,12 +8,6 @@ https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 -Install Flutter
 https://flutter.dev/docs/get-started/install
 
--Install Visual Studio Code 
-https://code.visualstudio.com/
-
--Install Flutter extension for VSCode
-https://marketplace.visualstudio.com/items?itemName=Dart-Code.flutter
-
 -Clone the git repository (open new terminal)
 git clone https://github.com/mtambucho/pokeapp.git
 cd pokeapp
