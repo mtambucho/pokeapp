@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokeapp/bloc/authentication_bloc/authentication_bloc.dart';
 import 'package:pokeapp/util/assets.dart';
+import 'package:pokeapp/util/custom_colors.dart';
 
 AppBar customAppBar(BuildContext context, {bool logoutButton = false}) =>
     AppBar(

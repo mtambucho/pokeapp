@@ -5,6 +5,7 @@ import 'package:pokeapp/network/pokemon_repository.dart';
 import 'package:pokeapp/page/detail_page.dart';
 import 'package:pokeapp/page/home_page.dart';
 import 'package:pokeapp/page/login_page.dart';
+import 'package:pokeapp/page/onboarding_page.dart';
 import 'package:pokeapp/page/splash_page.dart';
 import 'package:pokeapp/util/custom_colors.dart';
 import 'package:pokeapp/util/simple_bloc_observer.dart';
@@ -38,8 +39,10 @@ class MyApp extends StatelessWidget {
               child: MultiBlocProvider(
                 providers: [
                   BlocProvider<AuthenticationBloc>(
-                      create: (context) =>
-                          AuthenticationBloc()..add(AuthenticationInit())),
+                      create: (context) => AuthenticationBloc(
+                            pokemonRepository:
+                                context.repository<PokemonRepository>(),
+                          )..add(AuthenticationInit())),
                   BlocProvider(
                     create: (context) => PokemonsCubit(
                       pokemonRepository:
@@ -55,6 +58,9 @@ class MyApp extends StatelessWidget {
                     } else if (state is AuthenticationAuthenticated) {
                       _navigator.pushNamedAndRemoveUntil(
                           HomePage.routeName, (_) => false);
+                    } else if (state is AuthenticationShowOnBoarding) {
+                      _navigator.pushNamedAndRemoveUntil(
+                          OnBoardingPage.routeName, (_) => false);
                     }
                   },
                   child: child,
@@ -64,6 +70,7 @@ class MyApp extends StatelessWidget {
         home: SplashPage(),
         routes: {
           LoginPage.routeName: (ctx) => LoginPage(),
+          OnBoardingPage.routeName: (ctx) => OnBoardingPage(),
           HomePage.routeName: (ctx) => HomePage(),
           DetailPage.routeName: (ctx) => BlocProvider<DetailCubit>(
                 create: (context) => DetailCubit(
