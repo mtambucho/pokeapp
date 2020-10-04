@@ -34,7 +34,7 @@ class PokemonRepository implements PokemonRepositoryFactory {
   @override
   Future<PokemonList> getPokemons({String url}) async {
     try {
-      var getPokemonUrl = url ?? kGetPokemonsUrl;
+      var getPokemonUrl = url ?? Constants.kGetPokemonsUrl;
       print('URL -> $getPokemonUrl');
       var response = await _netUtil.get(getPokemonUrl);
 
@@ -69,7 +69,7 @@ class PokemonRepository implements PokemonRepositoryFactory {
   @override
   Future<StoredData> getStoredData() async {
     var prefs = await SharedPreferences.getInstance();
-    var auxStoredData = prefs.getString(kStoredData);
+    var auxStoredData = prefs.getString(Constants.kStoredData);
     final Map<String, dynamic> storedDataDecoded =
         auxStoredData != null ? json.decode(auxStoredData) : null;
     var data = storedDataDecoded != null
@@ -82,6 +82,6 @@ class PokemonRepository implements PokemonRepositoryFactory {
   Future<void> setStoredData(StoredData data) async {
     var prefs = await SharedPreferences.getInstance();
     var encodeData = json.encode(data.map);
-    await prefs.setString(kStoredData, encodeData);
+    await prefs.setString(Constants.kStoredData, encodeData);
   }
 }

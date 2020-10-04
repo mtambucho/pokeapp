@@ -6,6 +6,7 @@ import 'package:pokeapp/page/detail_page.dart';
 import 'package:pokeapp/page/home_page.dart';
 import 'package:pokeapp/page/login_page.dart';
 import 'package:pokeapp/page/splash_page.dart';
+import 'package:pokeapp/util/custom_colors.dart';
 import 'package:pokeapp/util/simple_bloc_observer.dart';
 
 import 'bloc/authentication_bloc/authentication_bloc.dart';
@@ -27,8 +28,8 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         navigatorKey: _navigatorKey,
         theme: ThemeData(
-          primarySwatch: Colors.red,
-          accentColor: Colors.yellow,
+          primaryColor: Colors.grey.shade700,
+          accentColor: CustomColors.yellow,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         builder: (context, child) {

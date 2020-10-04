@@ -4,6 +4,8 @@ import 'package:pokeapp/bloc/authentication_bloc/authentication_bloc.dart';
 import 'package:pokeapp/bloc/pokemons_cubit/pokemons_cubit.dart';
 import 'package:pokeapp/model/pokemon_list.dart';
 import 'package:pokeapp/page/detail_page.dart';
+import 'package:pokeapp/util/assets.dart';
+import 'package:pokeapp/widget/util_widgets.dart';
 import 'package:pokeapp/widget/loading_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -33,23 +35,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Image.asset(
-          'asset/logo.png',
-          height: 60,
-        ),
-        backgroundColor: Colors.grey.shade700,
-        actions: [
-          IconButton(
-              icon: Icon(Icons.logout, color: Color(0xFFF3CB0C)),
-              onPressed: () => BlocProvider.of<AuthenticationBloc>(context)
-                  .add(AuthenticationLoggedOut()))
-        ],
-      ),
+      appBar: customAppBar(context, logoutButton: true),
       body: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('asset/background.jpg'), fit: BoxFit.cover)),
+        decoration: backgroundDecoration(),
         child: BlocBuilder<PokemonsCubit, PokemonsState>(
           cubit: BlocProvider.of<PokemonsCubit>(context)..fetchPokemons(),
           builder: (context, state) {
@@ -149,7 +137,5 @@ class PokemonItemWidget extends StatelessWidget {
         ),
       ),
     );
-
-    //onTap: onTap);
   }
 }
