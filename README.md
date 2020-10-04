@@ -17,25 +17,25 @@ https://flutter.dev/docs/get-started/install
 
 ## Run the project
 
--Open a new Terminal
+1- Open a new Terminal
 
--Clone the git repository 
+2- Clone the git repository 
 
 'git clone https://github.com/mtambucho/pokeapp.git'
 
--Enter to the folder
+3- Enter to the folder
 
 'cd pokeapp'
 
--Download the resources 
+4- Download the resources 
 
 'flutter pub get'
 
--Check device is running
+5- Check device is running
 
 'flutter devices'
 
--Run the app
+6- Run the app
 
 'flutter run'
 
@@ -48,11 +48,11 @@ https://flutter.dev/docs/get-started/install
 
 ### -equatable
 
-  Used for compare objects in dart without overriding the == operator
+  Used to compare objects in dart without overriding the == operator
 
 ### -http
 
-  Used for call the api
+  Used to call the api
   
 ### -shared_preferences
 
