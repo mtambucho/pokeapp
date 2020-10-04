@@ -121,7 +121,7 @@ void _showDialogError(BuildContext context, PokemonsState state) {
                   },
                 ),
                 FlatButton(
-                  child: Text('try again'),
+                  child: Text(Strings.tryAgain),
                   onPressed: () {
                     Navigator.of(context).pop();
                     BlocProvider.of<PokemonsCubit>(context).fetchPokemons();

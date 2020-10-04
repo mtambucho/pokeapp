@@ -21,13 +21,11 @@ class AuthenticationBloc
     AuthenticationEvent event,
   ) async* {
     if (event is AuthenticationInit) {
-      // Here is the checking in shared preferences is user is already logged in
-      // User user = isLoggedIn();
-      // if (user == null) {
-      // yield AuthenticationAuthenticated();
-      // } else {
-      yield AuthenticationUnauthenticated();
-      // }
+      if (await _isAuthenticated()) {
+        add(AuthenticationLoggedIn());
+      } else {
+        yield AuthenticationUnauthenticated();
+      }
     } else if (event is AuthenticationLoggedIn) {
       if (await _showOnboarding()) {
         yield AuthenticationShowOnBoarding();
@@ -35,11 +33,20 @@ class AuthenticationBloc
         yield AuthenticationAuthenticated();
       }
     } else if (event is AuthenticationLoggedOut) {
+      await _logout();
       yield AuthenticationUnauthenticated();
     } else if (event is FinishOnBoarding) {
       await _onBoardShowed();
       yield AuthenticationAuthenticated();
     }
+  }
+
+  Future<bool> _isAuthenticated() async {
+    var storedData = await pokemonRepository.getStoredData();
+    if (storedData != null && storedData.loggedIn) {
+      return true;
+    }
+    return false;
   }
 
   Future<bool> _showOnboarding() async {
@@ -51,6 +58,14 @@ class AuthenticationBloc
   }
 
   Future<void> _onBoardShowed() async {
+    var data = await pokemonRepository.getStoredData();
+    data = data.copyWith(loggedIn: false);
     await pokemonRepository.setStoredData(StoredData(onBoardingShowed: true));
+  }
+
+  Future<void> _logout() async {
+    var data = await pokemonRepository.getStoredData();
+    data = data.copyWith(loggedIn: false);
+    await pokemonRepository.setStoredData(data);
   }
 }

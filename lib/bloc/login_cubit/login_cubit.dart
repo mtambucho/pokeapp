@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:pokeapp/bloc/authentication_bloc/authentication_bloc.dart';
+import 'package:pokeapp/model/stored_data.dart';
 import 'package:pokeapp/network/pokemon_repository.dart';
 import 'package:pokeapp/util/strings.dart';
 
@@ -23,6 +24,13 @@ class LoginCubit extends Cubit<LoginState> {
           await pokemonRepository.login(username: username, password: password);
 
       if (user != null) {
+        var data = await pokemonRepository.getStoredData();
+        if (data != null) {
+          data = data.copyWith(loggedIn: true);
+        } else {
+          data = StoredData(loggedIn: true);
+        }
+        await pokemonRepository.setStoredData(data);
         authenticationBloc.add(AuthenticationLoggedIn());
       }
     }
