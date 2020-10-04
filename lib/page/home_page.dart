@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokeapp/bloc/pokemons_cubit/pokemons_cubit.dart';
 import 'package:pokeapp/model/pokemon_list.dart';
 import 'package:pokeapp/page/detail_page.dart';
+import 'package:pokeapp/util/strings.dart';
 import 'package:pokeapp/widget/util_widgets.dart';
 import 'package:pokeapp/widget/loading_widget.dart';
 
@@ -36,14 +37,20 @@ class _HomePageState extends State<HomePage> {
       appBar: customAppBar(context, logoutButton: true),
       body: Container(
         decoration: backgroundDecoration(),
-        child: BlocBuilder<PokemonsCubit, PokemonsState>(
+        child: BlocConsumer<PokemonsCubit, PokemonsState>(
           cubit: BlocProvider.of<PokemonsCubit>(context)..fetchPokemons(),
+          listener: (context, state) => _showDialogError(context, state),
+          listenWhen: (context, state) => state is PokemonsError,
           builder: (context, state) {
             if (state is PokemonsLoading) return LoadingWidget();
             if (state is PokemonsLoaded) {
               hasReachedPoint = false;
               return _buildPokemonList(state);
             }
+            if (state is PokemonsError) {
+              return Center(child: Text(Strings.noData));
+            }
+
             return Center(child: Text('Page not found'));
           },
         ),
@@ -87,6 +94,41 @@ class _HomePageState extends State<HomePage> {
       hasReachedPoint = true;
       BlocProvider.of<PokemonsCubit>(context).fetchPokemons();
     }
+  }
+}
+
+void _showDialogError(BuildContext context, PokemonsState state) {
+  if (state is PokemonsError) {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => AlertDialog(
+              title: Row(
+                children: [
+                  Icon(Icons.error),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(Strings.error),
+                ],
+              ),
+              content: Text(state.error),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text(Strings.cancel),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                FlatButton(
+                  child: Text('try again'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    BlocProvider.of<PokemonsCubit>(context).fetchPokemons();
+                  },
+                ),
+              ],
+            ));
   }
 }
 

@@ -21,6 +21,12 @@ class _LoadingWidgetState extends State<LoadingWidget>
   }
 
   @override
+  void dispose() {
+    rotationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Center(
         child: RotationTransition(

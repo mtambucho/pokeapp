@@ -15,4 +15,13 @@ class Strings {
   static const height = 'HEIGHT';
   static const abilities = 'Abilities';
   static const moves = 'Moves';
+  static const usernameEmpty = 'Username cannot be empty';
+  static const passwordEmpty = 'Password cannot be empty';
+  static const logout = 'Logout';
+  static const logoutText = 'Are you sure you want to Logout?';
+  static const cancel = 'Cancel';
+  static const unexpectedServerError = 'Unexpected server error';
+  static const error = 'Error';
+  static const noData = 'No data could be obtained';
+  static const tryAgain = 'Try again';
 }

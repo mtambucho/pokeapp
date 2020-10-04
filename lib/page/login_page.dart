@@ -61,8 +61,9 @@ class _LoginPageState extends State<LoginPage> {
                             cursorColor: CustomColors.yellow,
                             style: TextStyle(color: Colors.grey.shade200),
                             controller: _usernameController,
-                            decoration:
-                                _inputDecoration(hint: Strings.username)),
+                            decoration: _inputDecoration(
+                                hint: Strings.username,
+                                error: state.usernameError)),
                       ),
                       Padding(
                         padding: EdgeInsets.only(
@@ -75,8 +76,9 @@ class _LoginPageState extends State<LoginPage> {
                             style: TextStyle(color: Colors.grey.shade200),
                             controller: _passwordController,
                             obscureText: true,
-                            decoration:
-                                _inputDecoration(hint: Strings.password)),
+                            decoration: _inputDecoration(
+                                hint: Strings.password,
+                                error: state.passwordError)),
                       ),
                       RaisedButton(
                           color: CustomColors.pokemonBlue.withAlpha(200),
@@ -103,9 +105,12 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  InputDecoration _inputDecoration({String hint}) => InputDecoration(
-      hintText: hint,
-      hintStyle: TextStyle(color: Colors.grey.shade400),
-      fillColor: CustomColors.blue.withAlpha(150),
-      filled: true);
+  InputDecoration _inputDecoration({String hint, String error}) =>
+      InputDecoration(
+          hintText: hint,
+          errorText: error,
+          errorStyle: TextStyle(color: Colors.red.shade800),
+          hintStyle: TextStyle(color: Colors.grey.shade400),
+          fillColor: CustomColors.blue.withAlpha(150),
+          filled: true);
 }

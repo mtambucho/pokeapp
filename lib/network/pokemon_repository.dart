@@ -8,7 +8,10 @@ import 'package:pokeapp/model/stored_data.dart';
 import 'package:pokeapp/model/user.dart';
 import 'package:pokeapp/network/network_util.dart';
 import 'package:pokeapp/util/constants.dart';
+import 'package:pokeapp/util/strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'custom_exception.dart';
 
 abstract class PokemonRepositoryFactory {
   Future<User> login({String username, String password});
@@ -25,10 +28,11 @@ abstract class PokemonRepositoryFactory {
 class PokemonRepository implements PokemonRepositoryFactory {
   final NetworkUtil _netUtil = NetworkUtil();
 
+  // Login always true
   @override
   Future<User> login(
       {@required String username, @required String password}) async {
-    //login always true
+    // Delay to make more real
     await Future.delayed(const Duration(seconds: 1));
 
     return User(username: username);
@@ -45,7 +49,7 @@ class PokemonRepository implements PokemonRepositoryFactory {
         var pokemonList = PokemonList.fromJson(responseJson);
         return pokemonList;
       } else {
-        return null;
+        throw CustomException(Strings.unexpectedServerError);
       }
     } on SocketException {
       return null;

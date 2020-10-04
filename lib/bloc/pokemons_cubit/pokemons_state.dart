@@ -9,6 +9,15 @@ abstract class PokemonsState extends Equatable {
 
 class PokemonsLoading extends PokemonsState {}
 
+class PokemonsError extends PokemonsState {
+  final String error;
+
+  PokemonsError(this.error);
+
+  @override
+  List<Object> get props => [error];
+}
+
 class PokemonsLoaded extends PokemonsState {
   final List<PokemonBasicInfo> pokemons;
   // Used for pagination
