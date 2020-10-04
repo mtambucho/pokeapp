@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pokeapp/bloc/detail_cubit/detail_cubit.dart';
 import 'package:pokeapp/bloc/pokemons_cubit/pokemons_cubit.dart';
-import 'package:pokeapp/detail_cubit/detail_cubit.dart';
 import 'package:pokeapp/model/pokemon.dart';
 import 'package:pokeapp/util/custom_colors.dart';
 import 'package:pokeapp/util/strings.dart';
@@ -74,7 +74,10 @@ class InformationWidget extends StatelessWidget {
           ..getPokemonDetails(detalUrl),
         builder: (context, state) {
           if (state.pokemon == null) {
-            return LoadingWidget();
+            return Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: LoadingWidget(),
+            );
           } else {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.center,

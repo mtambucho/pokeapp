@@ -20,21 +20,23 @@ abstract class PokemonRepositoryFactory {
 
   Future<Pokemon> getPokemonDetils(String url);
 
+  //Get user data from shared preferences
   Future<StoredData> getStoredData();
 
+  //Save user data en shared preferences
   Future<void> setStoredData(StoredData data);
 }
 
 class PokemonRepository implements PokemonRepositoryFactory {
   final NetworkUtil _netUtil = NetworkUtil();
 
-  // Login always true
   @override
   Future<User> login(
       {@required String username, @required String password}) async {
     // Delay to make more real
     await Future.delayed(const Duration(seconds: 1));
 
+    // Login always true
     return User(username: username);
   }
 
