@@ -21,24 +21,32 @@ https://flutter.dev/docs/get-started/install
 
 2- Clone the git repository 
 
-'git clone https://github.com/mtambucho/pokeapp.git'
+```
+git clone https://github.com/mtambucho/pokeapp.git
+```
 
 3- Enter to the folder
 
-'cd pokeapp'
-
+```
+cd pokeapp
+```
 4- Download the resources 
 
-'flutter pub get'
+```
+flutter pub get
+```
 
 5- Check device is running
 
-'flutter devices'
+```
+flutter devices
+```
 
 6- Run the app
 
-'flutter run'
-
+```
+flutter run
+```
 
 ## External libraries 
 
