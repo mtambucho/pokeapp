@@ -7,7 +7,7 @@ class PokemonList {
   PokemonList(
       {int count,
       String next,
-      Null previous,
+      String previous,
       List<PokemonBasicInfo> pokemons}) {
     _count = count;
     _next = next;
@@ -20,7 +20,7 @@ class PokemonList {
   String get next => _next;
   set next(String next) => _next = next;
   String get previous => _previous;
-  set previous(Null previous) => _previous = previous;
+  set previous(String previous) => _previous = previous;
   List<PokemonBasicInfo> get pokemons => _pokemons;
   set pokemons(List<PokemonBasicInfo> pokemons) => _pokemons = pokemons;
 
@@ -50,6 +50,7 @@ class PokemonBasicInfo {
   }
 
   int get id => _id;
+  //Uppercase the first letter
   String get name =>
       '${_name.substring(0, 1).toUpperCase()}${_name.substring(1)}';
   set name(String name) => _name = name;
@@ -63,6 +64,9 @@ class PokemonBasicInfo {
     _getImageUrl();
   }
 
+  // To show the images in the homePage list
+  // I extract the id from given Url and paste in image url
+  // https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png
   void _getImageUrl() {
     final start = 'https://pokeapi.co/api/v2/pokemon/';
     final end = '/';

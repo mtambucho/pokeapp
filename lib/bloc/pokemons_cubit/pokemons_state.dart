@@ -11,6 +11,7 @@ class PokemonsLoading extends PokemonsState {}
 
 class PokemonsLoaded extends PokemonsState {
   final List<PokemonBasicInfo> pokemons;
+  // Used for pagination
   final bool hasReachedMax;
 
   PokemonsLoaded(this.pokemons, {this.hasReachedMax = false});

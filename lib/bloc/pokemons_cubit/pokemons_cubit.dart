@@ -17,12 +17,15 @@ class PokemonsCubit extends Cubit<PokemonsState> {
   Future<void> fetchPokemons() async {
     var pokemonList =
         await pokemonRepository.getPokemons(url: _pokemonList?.next);
+
+    // Copy the pokemon existing list in the new list
     pokemonList.pokemons = [
       if (_pokemonList != null) ..._pokemonList.pokemons,
       ...pokemonList?.pokemons
     ];
+
     _pokemonList = pokemonList;
-    print('CANT POKEMONS ${_pokemonList.pokemons.length}');
+
     emit(PokemonsLoaded(_pokemonList.pokemons,
         hasReachedMax: _pokemonList.next == null));
   }

@@ -15,6 +15,7 @@ class DetailCubit extends Cubit<DetailState> {
 
   Future<void> getPokemonDetails(String url) async {
     var pokemon = await pokemonRepository.getPokemonDetils(url);
+
     emit(DetailState(pokemon: pokemon));
   }
 }

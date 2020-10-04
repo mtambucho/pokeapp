@@ -4,6 +4,7 @@ import 'package:pokeapp/bloc/pokemons_cubit/pokemons_cubit.dart';
 import 'package:pokeapp/detail_cubit/detail_cubit.dart';
 import 'package:pokeapp/model/pokemon.dart';
 import 'package:pokeapp/util/custom_colors.dart';
+import 'package:pokeapp/util/strings.dart';
 import 'package:pokeapp/widget/loading_widget.dart';
 import 'package:pokeapp/widget/util_widgets.dart';
 
@@ -80,15 +81,16 @@ class InformationWidget extends StatelessWidget {
               children: [
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   _buildInfoItem(
-                      title: 'WEIGHT', value: '${state.pokemon.weight}kg'),
+                      title: Strings.weight,
+                      value: '${state.pokemon.weight}kg'),
                   _buildInfoItem(
-                      title: 'HEIGHT', value: '${state.pokemon.height}m')
+                      title: Strings.height, value: '${state.pokemon.height}m')
                 ]),
                 Divider(),
-                _buildTitle('Abilities'),
+                _buildTitle(Strings.abilities),
                 _buildAbilities(state.pokemon.abilities),
                 Divider(),
-                _buildTitle('Moves'),
+                _buildTitle(Strings.moves),
                 _buildMoves(state.pokemon.moves),
               ],
             );

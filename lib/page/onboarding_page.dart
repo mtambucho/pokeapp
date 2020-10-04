@@ -102,7 +102,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                 onPressed: () => BlocProvider.of<AuthenticationBloc>(context)
                     .add(FinishOnBoarding()),
                 child: Text(
-                  Strings.finish,
+                  Strings.done,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: CustomColors.blue,
@@ -138,6 +138,17 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         ),
         SizedBox(
           height: MediaQuery.of(context).size.width * .2,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Text(
+            Strings.welcomeText,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: CustomColors.blue,
+                fontWeight: FontWeight.bold,
+                fontSize: 18),
+          ),
         ),
         Spacer(),
         Text(
@@ -203,9 +214,9 @@ class ImageWidget extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 40),
       child: Column(
         children: [
-          Image.asset(Assets.scrollAsset, height: 100, fit: BoxFit.fitWidth),
+          Image.asset(imageAsset, height: 100, fit: BoxFit.fitWidth),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 30),
             child: Text(
               text,
               maxLines: 3,

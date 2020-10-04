@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pokeapp/bloc/authentication_bloc/authentication_bloc.dart';
 import 'package:pokeapp/bloc/pokemons_cubit/pokemons_cubit.dart';
 import 'package:pokeapp/model/pokemon_list.dart';
 import 'package:pokeapp/page/detail_page.dart';
-import 'package:pokeapp/util/assets.dart';
 import 'package:pokeapp/widget/util_widgets.dart';
 import 'package:pokeapp/widget/loading_widget.dart';
 

@@ -9,6 +9,7 @@ import 'package:pokeapp/page/onboarding_page.dart';
 import 'package:pokeapp/page/splash_page.dart';
 import 'package:pokeapp/util/custom_colors.dart';
 import 'package:pokeapp/util/simple_bloc_observer.dart';
+import 'package:pokeapp/widget/loading_widget.dart';
 
 import 'bloc/authentication_bloc/authentication_bloc.dart';
 import 'bloc/pokemons_cubit/pokemons_cubit.dart';

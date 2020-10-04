@@ -11,7 +11,7 @@ import 'package:pokeapp/util/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class PokemonRepositoryFactory {
-  User login({String username, String password});
+  Future<User> login({String username, String password});
 
   Future<PokemonList> getPokemons({String url});
 
@@ -26,8 +26,11 @@ class PokemonRepository implements PokemonRepositoryFactory {
   final NetworkUtil _netUtil = NetworkUtil();
 
   @override
-  User login({@required String username, @required String password}) {
+  Future<User> login(
+      {@required String username, @required String password}) async {
     //login always true
+    await Future.delayed(const Duration(seconds: 1));
+
     return User(username: username);
   }
 
@@ -35,7 +38,6 @@ class PokemonRepository implements PokemonRepositoryFactory {
   Future<PokemonList> getPokemons({String url}) async {
     try {
       var getPokemonUrl = url ?? Constants.kGetPokemonsUrl;
-      print('URL -> $getPokemonUrl');
       var response = await _netUtil.get(getPokemonUrl);
 
       if (response.statusCode == 200) {

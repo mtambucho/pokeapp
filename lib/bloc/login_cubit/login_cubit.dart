@@ -16,10 +16,12 @@ class LoginCubit extends Cubit<LoginState> {
   final AuthenticationBloc authenticationBloc;
 
   Future<void> logIn(String username, String password) async {
+    emit(LoginLoading());
     var user =
         await pokemonRepository.login(username: username, password: password);
+
     if (user != null) {
-      emit(LoginInitial());
+      // emit(LoginInitial());
       authenticationBloc.add(AuthenticationLoggedIn());
     }
   }

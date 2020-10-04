@@ -3,4 +3,5 @@ class Assets {
   static const logoAsset = 'asset/logo.png';
   static const tapAsset = 'asset/tap.png';
   static const scrollAsset = 'asset/scroll.png';
+  static const pokeballAsset = 'asset/pokeball.png';
 }

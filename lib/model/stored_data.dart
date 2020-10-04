@@ -1,4 +1,5 @@
 class StoredData {
+  // when the onboarding page was showed
   final bool onBoardingShowed;
 
   StoredData({this.onBoardingShowed});

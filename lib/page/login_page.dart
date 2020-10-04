@@ -58,6 +58,8 @@ class _LoginPageState extends State<LoginPage> {
                             horizontal: MediaQuery.of(context).size.width * .1,
                             vertical: 10),
                         child: TextField(
+                            cursorColor: CustomColors.yellow,
+                            style: TextStyle(color: Colors.grey.shade200),
                             controller: _usernameController,
                             decoration:
                                 _inputDecoration(hint: Strings.username)),
@@ -69,6 +71,8 @@ class _LoginPageState extends State<LoginPage> {
                             top: 10,
                             bottom: 30),
                         child: TextField(
+                            cursorColor: CustomColors.yellow,
+                            style: TextStyle(color: Colors.grey.shade200),
                             controller: _passwordController,
                             obscureText: true,
                             decoration:
@@ -102,6 +106,6 @@ class _LoginPageState extends State<LoginPage> {
   InputDecoration _inputDecoration({String hint}) => InputDecoration(
       hintText: hint,
       hintStyle: TextStyle(color: Colors.grey.shade400),
-      fillColor: Colors.grey.shade800.withAlpha(150),
+      fillColor: CustomColors.blue.withAlpha(150),
       filled: true);
 }
